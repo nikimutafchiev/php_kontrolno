@@ -8,6 +8,7 @@ use App\Models\Post;
 
 class Like extends Model
 {
+    protected $fillable = ["post_id"];
     //
     public function user()
     {

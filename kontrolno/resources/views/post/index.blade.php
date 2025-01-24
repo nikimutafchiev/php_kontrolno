@@ -15,10 +15,14 @@
     </div>
     <ul>
 
-        @foreach($posts->all() as $post)
+        @foreach($posts as $post)
         <div style="background-color: gray; padding:16px; margin:4px; border-radius:10px; display:flex; flex-direction:row; justify-content:space-between; align-items:center">
-            <div>{{$post->content}}</div>
-            <div>{{}}</div><button style="color:white;background-color:blue;font-weight:700; padding:4px;border-radius: 6px;">Like</button>
+            <div>{{$post["content"]}}</div>
+            <div>Likes: {{$post["likes"]}}</div>
+            <form method="POST" action="/like/?post_id={{$post['id']}}">
+                {{csrf_field()}}
+                <button type="submit" style="color:white;background-color:blue;font-weight:700; padding:4px;border-radius: 6px;">Like</button>
+            </form>
         </div>
         @endforeach
     </ul>

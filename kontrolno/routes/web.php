@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,6 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/posts', [PostController::class, "index"])->name("posts.index");
     Route::post("/post", [PostController::class, "store"])->name("posts.store");
+    Route::post("/like/", [LikeController::class, "store"])->name("like.store");
 });
 
 

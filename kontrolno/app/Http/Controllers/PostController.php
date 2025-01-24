@@ -10,10 +10,7 @@ use App\Models\Like;
 class PostController extends Controller
 {
     //
-    public function index()
-    {
-        return view("post.index", ["posts" => Post::all()]);
-    }
+
     public function store(Request $request)
     {
         $request->user()->posts()->create($request->all());
@@ -22,5 +19,20 @@ class PostController extends Controller
     public function likeCount(Post $post)
     {
         return count(Like::where("post_id", $post->id)->get());
+    }
+    public function index()
+    {
+        $posts = [];
+        foreach (Post::all() as $post) {
+            array_push(
+                $posts,
+                [
+                    "id" => $post->id,
+                    "content" => $post->content,
+                    "likes" => PostController::likeCount($post)
+                ]
+            );
+        }
+        return view("post.index", ["posts" =>  $posts]);
     }
 }
