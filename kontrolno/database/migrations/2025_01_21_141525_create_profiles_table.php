@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("bio");
             $table->string("avatar");
-            $table->foreignId("user_id")->constrained("User")->cascadeOnDelete();
+            $table->foreignId("user_id")->references("id")->on("users")->onDelete("cascade");
             $table->timestamps();
         });
     }
