@@ -23,6 +23,12 @@
                 {{csrf_field()}}
                 <button type="submit" style="color:white;background-color:blue;font-weight:700; padding:4px;border-radius: 6px;">Like</button>
             </form>
+            <form method="POST" action="/post/?post_id={{$post['id']}}">
+                {{csrf_field()}}
+                {{method_field("DELETE")}}
+                <button type="submit" style="color:white;background-color:red;font-weight:700; padding:4px;border-radius: 6px;">Delete</button>
+
+            </form>
         </div>
         @endforeach
     </ul>

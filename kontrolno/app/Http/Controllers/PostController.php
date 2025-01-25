@@ -35,4 +35,10 @@ class PostController extends Controller
         }
         return view("post.index", ["posts" =>  $posts]);
     }
+    public function delete()
+    {
+        $post = Post::where("id", $_GET["post_id"])->get()[0];
+        $post->delete();
+        return redirect("posts");
+    }
 }
