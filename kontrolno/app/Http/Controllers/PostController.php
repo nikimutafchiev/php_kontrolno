@@ -20,7 +20,7 @@ class PostController extends Controller
     {
         return count(Like::where("post_id", $post->id)->get());
     }
-    public function index()
+    public function index(Request $request)
     {
         $posts = [];
         foreach (Post::all() as $post) {
@@ -29,16 +29,26 @@ class PostController extends Controller
                 [
                     "id" => $post->id,
                     "content" => $post->content,
-                    "likes" => PostController::likeCount($post)
+                    "likes" => PostController::likeCount($post),
+                    "is_liked" =>
+                    $request->user()->likes()->where("post_id", $post->id)->first() ? "Dislike" : "Like"
                 ]
             );
         }
         return view("post.index", ["posts" =>  $posts]);
     }
-    public function delete()
+    public function update(Request $request, Post $post)
     {
-        $post = Post::where("id", $_GET["post_id"])->get()[0];
-        $post->delete();
+        if ($request->user()->id == $post->user_id)
+            $post->update($request->all());
+        return redirect("posts");
+    }
+    public function delete(Request $request)
+    {
+        $post = Post::where("id", $_GET["post_id"])->first();
+        if ($request->user()->id == $post->user_id) {
+            $post->delete();
+        }
         return redirect("posts");
     }
 }

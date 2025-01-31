@@ -21,8 +21,9 @@
             <div>Likes: {{$post["likes"]}}</div>
             <form method="POST" action="/like/?post_id={{$post['id']}}">
                 {{csrf_field()}}
-                <button type="submit" style="color:white;background-color:blue;font-weight:700; padding:4px;border-radius: 6px;">Like</button>
+                <button type="submit" style="color:white;background-color:blue;font-weight:700; padding:4px;border-radius: 6px;">{{$post["is_liked"]}}</button>
             </form>
+
             <form method="POST" action="/post/?post_id={{$post['id']}}">
                 {{csrf_field()}}
                 {{method_field("DELETE")}}
